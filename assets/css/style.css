@@ -111,7 +111,7 @@ button:hover {
 .table__container {
     width: 50%;
     max-height: 300px;
-    overflow: auto;
+    overflow-y: auto;
     display: flex;
     justify-content: center;
 }
@@ -151,6 +151,11 @@ button:hover {
 
 .data__two {
     flex-direction: row-reverse;
+}
+
+.section__title {
+    display: flex;
+    justify-content: center;
 }
 
 @media screen and (max-width: 576px) {

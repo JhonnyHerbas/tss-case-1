@@ -4,9 +4,9 @@ var myChartInventario;
 document.getElementById('simular').addEventListener('click', function () {
     var tablaContainer = document.getElementById('venta-dias');
     var tablaInventario = document.getElementById('tabla-inventario')
-    if (myChartVentas && myChartInventario) {
+    if (myChartVentas) {
         myChartVentas.destroy();
-        myChartInventario.destroy();
+        // myChartInventario.destroy();
     }
     tablaContainer.innerHTML = '';
     tablaInventario.innerHTML = '';
@@ -31,7 +31,10 @@ document.getElementById('simular').addEventListener('click', function () {
         crearTabla(tablaVentas, vendido);
         const listaDias = generarlistaDias(vendido.length);
         graficarBarras(vendido, listaDias)
+        const inventario = generarInventario(cantidadProductos, vendido);
+        crearTablaInventario(tablaInventario, inventario);
 
+        // console.log('Inventario: ', inventario)
         // console.log('Numeros aleatorios: ', numerosAleatorios);
         // console.log('Distribucion binomial ', datosBinomial);
         // console.log('Vendido', vendido)
@@ -74,6 +77,17 @@ function generarNumeroVentas(datosBinomiales) {
     );
 }
 
+function generarInventario(cantidadProductos, vendido) {
+    let inventario = [Math.floor(cantidadProductos)];
+    for (var i = 1; i < vendido.length; i++) {
+        if (inventario[i-1] - vendido[i-1] < 0) {
+            break;
+        }
+        inventario[i] = inventario[i-1] - vendido[i-1];
+    }
+    return inventario;
+}
+
 // GRAFICADORES
 function crearTabla(div, datos) {
     var tabla = document.createElement('table');
@@ -83,6 +97,25 @@ function crearTabla(div, datos) {
     encabezadoDia.innerHTML = 'Dia';
     var encabezadoVentas = filaEncabezado.insertCell(1);
     encabezadoVentas.innerHTML = 'Numero de ventas';
+    var cuerpoTabla = tabla.createTBody();
+    for (var i = 0; i < datos.length; i++) {
+        var fila = cuerpoTabla.insertRow(i);
+        var celdaDia = fila.insertCell(0);
+        celdaDia.innerHTML = i + 1;
+        var celdaVentas = fila.insertCell(1);
+        celdaVentas.innerHTML = datos[i];
+    }
+    div.appendChild(tabla);
+}
+
+function crearTablaInventario(div, datos) {
+    var tabla = document.createElement('table');
+    tabla.className = 'table';
+    var filaEncabezado = tabla.createTHead().insertRow(0);
+    var encabezadoDia = filaEncabezado.insertCell(0);
+    encabezadoDia.innerHTML = 'Dia';
+    var encabezadoVentas = filaEncabezado.insertCell(1);
+    encabezadoVentas.innerHTML = 'Inventario';
     var cuerpoTabla = tabla.createTBody();
     for (var i = 0; i < datos.length; i++) {
         var fila = cuerpoTabla.insertRow(i);
