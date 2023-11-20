@@ -1,0 +1,168 @@
+/* GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap');
+
+body {
+    font-family: "Roboto", sans-serif;
+    margin: auto;
+    background: linear-gradient(45deg, #181e35, #051624);
+    height: auto;
+    color: #f8f8f8;
+}
+
+header {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+
+.policies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.title {
+    font-size: x-large;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+}
+
+.data {
+    display: flex;
+    margin: 0 5rem 0 5rem;
+    gap: 50px;
+}
+
+p {
+    font-size: small;
+}
+
+.card__policy {
+    flex-grow: 1;
+    flex-basis: 200;
+    flex-direction: column;
+    width: 300px;
+    height: auto;
+    text-align: center;
+    margin: 0 1rem 0 1rem;
+}
+
+.form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.input {
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+}
+
+.input label {
+    font-size: small;
+    font-weight: 500;
+}
+
+input {
+    width: 300px;
+    height: 25px;
+    border: none;
+    outline: none;
+    background-color: hsla(0, 0%, 0%, 0);
+    color: #f8f8f8;
+    border-bottom: solid 1px;
+}
+
+.error__message {
+    color: red;
+    font-size: x-small;
+}
+
+button {
+    background-color: #29a847;
+    border: none;
+    border-radius: 15px;
+    height: 30px;
+    width: 250px;
+    color: #f8f8f8;
+    cursor: pointer;
+    appearance: none;
+    transition: transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #349b4c;
+    transform: translate(-2px, -2px);
+}
+
+.table__container {
+    width: 50%;
+    max-height: 300px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.table__container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.table__container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.table__container::-webkit-scrollbar-track {
+    background-color: hsla(0, 0%, 0%, 0);
+}
+
+.table {
+    border-collapse: collapse;
+    width: 50%;
+    font-size: small;
+}
+
+.table th,
+.table td {
+    border: 1px solid #f8f8f8;
+    padding: 5px;
+    text-align: left;
+}
+
+.card {
+    flex-grow: 1;
+    flex-basis: 200;
+    width: 200px;
+    height: auto;
+}
+
+.data__two {
+    flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 576px) {
+    .data {
+        flex-direction: column;
+    }
+
+    .data div {
+        width: 100%;
+    }
+
+    .data__two {
+        flex-direction: column;
+    }
+}

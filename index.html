@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso de estudio 1</title>
+    <!-- Incluir la biblioteca Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header>
+        <label class="title">Inventarios en una empresa de negocios</label>
+    </header>
+    <main>
+        <section>
+            <div class="policies">
+                <section class="card__policy">
+                    <label>Politica 1</label>
+                    <p>Realizar el pedido de productos cada 8 dias sin importar la cantidad disponible en inventario.
+                    </p>
+                </section>
+
+                <section class="card__policy">
+                    <label>Politica 2</label>
+                    <p>Realizar el pedido cada vez que la cantidad de productos en el inventario sea menor o igual a 10.
+                    </p>
+                </section>
+            </div>
+        </section>
+
+        <section>
+            <div class="form">
+                <label>Datos para simular</label>
+                <div class="input">
+                    <label for="numero-dias">Numero de dias</label>
+                    <input type="number" id="numero-dias" min="0">
+                    <span class="error__message" id="error-numero-dias"></span>
+                </div>
+
+                <div class="input">
+                    <label for="invetario-inicial">Cantidad de productos</label>
+                    <input type="number" id="invetario-inicial" min="0">
+                    <span class="error__message" id="error-cantidad-productos"></span>
+                </div>
+
+                <div class="input">
+                    <label for="costo-pedido">Costo de pedido</label>
+                    <div>
+                        <input type="number" id="costo-pedido" min="0">
+                        <label title="Tipo de moneda">Bs.</label>
+                    </div>
+                    <span class="error__message" id="error-costo-pedido"></span>
+                </div>
+
+                <div class="input">
+                    <label for="costo-mentenimiento">Costo de mantenimiento</label>
+                    <div>
+                        <input type="number" id="costo-mentenimiento" min="0">
+                        <label title="Tipo de moneda">Bs.</label>
+                    </div>
+                    <span class="error__message" id="error-costo-mentenimiento"></span>
+                </div>
+
+                <div>
+                    <button id="simular">Simular</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="data">
+            <div class="table__container card" id="venta-dias"></div>
+            <div class="grafico card">
+                <canvas id="myChart"></canvas>
+            </div>
+        </section>
+
+        <section class="data data__two">
+            <div class="table__container card" id="tabla-inventario"></div>
+            <div class="grafico card">
+                <canvas id="myChartInventario"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <!-- Contenedor para el gráfico -->
+
+
+    <!-- Tu script personalizado para generar el gráfico -->
+    <script src="assets/js/obtenerDatos.js"></script>
+</body>
+
+</html>
