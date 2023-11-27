@@ -32,7 +32,10 @@ document.getElementById('simular').addEventListener('click', function () {
         const listaDias = generarlistaDias(vendido.length);
         graficarBarras(vendido, listaDias)
         const inventario = generarInventario(cantidadProductos, vendido);
-        crearTablaInventario(tablaInventario, inventario);
+        crearTablaInventario(tablaInventario, inventario[0], inventario[1]);
+        graficarLinea(inventario[0]);
+        var resultadoCosto = calcularCoste(inventario[0], inventario[2], costoPedido, costoMantenimiento);
+        mostrarCostos(resultadoCosto);
 
         // console.log('Inventario: ', inventario)
         // console.log('Numeros aleatorios: ', numerosAleatorios);
@@ -47,6 +50,18 @@ document.getElementById('costo-pedido').addEventListener('input', validarCostoPe
 document.getElementById('costo-mentenimiento').addEventListener('input', validarCostoMantenimiento);
 
 // FUNCIONES UTILIZADAS
+function calcularCoste(inventario, numeroPedidos, costoPedido, costoMantenimiento) {
+    var costoTotalMantenimiento = 0;
+    var costoTotalPedidos = 0;
+    var costoTotal = 0;
+    for (var i = 0; i < inventario.length; i++) {
+        costoTotalMantenimiento = costoTotalMantenimiento + (inventario[i] * costoMantenimiento);
+    }
+    costoTotalPedidos = numeroPedidos * costoPedido;
+    costoTotal = costoTotalPedidos + costoTotalMantenimiento;
+    return [costoTotalMantenimiento, costoTotalPedidos, costoTotal];
+}
+
 function generarNumerosAleatorios(numeroDias) {
     return Array.from({ length: numeroDias }, () => Math.floor(Math.random() * 6));
 }
@@ -79,16 +94,60 @@ function generarNumeroVentas(datosBinomiales) {
 
 function generarInventario(cantidadProductos, vendido) {
     let inventario = [Math.floor(cantidadProductos)];
+    var listDiasLlegada = [];
+    let diasLlegada;
+    let cantidadPedido;
+    let numeroDePedido = 0;
     for (var i = 1; i < vendido.length; i++) {
-        if (inventario[i-1] - vendido[i-1] < 0) {
+        if (inventario[i - 1] - vendido[i - 1] < 0) {
             break;
         }
-        inventario[i] = inventario[i-1] - vendido[i-1];
+        inventario[i] = inventario[i - 1] - vendido[i - 1];
+        if (i % 8 === 0) {
+            numeroDePedido = numeroDePedido + 1;
+            diasLlegada = generarPedido(inventario[i]);
+            listDiasLlegada.push(diasLlegada);
+            cantidadPedido = 30 - inventario[i];
+        } else {
+            listDiasLlegada.push(0);
+        }
+        if (diasLlegada !== null) {
+            diasLlegada = diasLlegada - 1;
+            if (diasLlegada === 0) {
+                inventario[i] = inventario[i] + cantidadPedido;
+            }
+        }
     }
-    return inventario;
+    return [inventario, listDiasLlegada, numeroDePedido];
+}
+
+function generarPedido(cantidad) {
+    var aleatorio = Math.random();
+    let resultado;
+    let valorIntermedio = (-Math.log(1 - aleatorio) / 3) * 4;
+    if (Math.round(valorIntermedio, 5) < 1) {
+        resultado = 1;
+    } else {
+        resultado = Math.round(valorIntermedio, 5);
+    }
+    return resultado;
 }
 
 // GRAFICADORES
+function mostrarCostos(datos) {
+    const mantenimiento = document.getElementById('costo-mantenimiento-1');
+    const pedido = document.getElementById('costo-pedidos-1');
+    const total = document.getElementById('costo-total-1');
+
+    const costoMantenimiento = datos[0];
+    const costoPedido = datos[1];
+    const costoTotal = datos[2];
+
+    mantenimiento.textContent = `Costo de mantenimiento: ${costoMantenimiento} Bs.`;
+    pedido.textContent = `Costo de pedido: ${costoPedido} Bs.`;
+    total.textContent = `Costo total: ${costoTotal} Bs.`;
+}
+
 function crearTabla(div, datos) {
     var tabla = document.createElement('table');
     tabla.className = 'table';
@@ -108,7 +167,7 @@ function crearTabla(div, datos) {
     div.appendChild(tabla);
 }
 
-function crearTablaInventario(div, datos) {
+function crearTablaInventario(div, datos, diasLlegada) {
     var tabla = document.createElement('table');
     tabla.className = 'table';
     var filaEncabezado = tabla.createTHead().insertRow(0);
@@ -116,6 +175,8 @@ function crearTablaInventario(div, datos) {
     encabezadoDia.innerHTML = 'Dia';
     var encabezadoVentas = filaEncabezado.insertCell(1);
     encabezadoVentas.innerHTML = 'Inventario';
+    var encabezadoVentas = filaEncabezado.insertCell(2);
+    encabezadoVentas.innerHTML = 'Pedido dias';
     var cuerpoTabla = tabla.createTBody();
     for (var i = 0; i < datos.length; i++) {
         var fila = cuerpoTabla.insertRow(i);
@@ -123,6 +184,8 @@ function crearTablaInventario(div, datos) {
         celdaDia.innerHTML = i + 1;
         var celdaVentas = fila.insertCell(1);
         celdaVentas.innerHTML = datos[i];
+        var celdaPedido = fila.insertCell(2);
+        celdaPedido.innerHTML = diasLlegada[i];
     }
     div.appendChild(tabla);
 }
@@ -161,6 +224,38 @@ function graficarBarras(vendido, listaDias) {
     };
     const ctx = document.getElementById('myChart').getContext('2d');
     myChartVentas = new Chart(ctx, configuracion);
+}
+
+function graficarLinea(inventario) {
+    const listaDias = Array.from({ length: inventario.length }, (_, index) => `Día ${index + 1}`);
+
+    const datos = {
+        labels: listaDias,
+        datasets: [{
+            label: 'Inventario por día',
+            data: inventario,
+            borderColor: '#4BC0C0',
+            borderWidth: 2,
+            fill: false
+        }]
+    };
+
+    const configuracion = {
+        type: 'line',
+        data: datos,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    const ctx = document.getElementById('myChartInventario').getContext('2d');
+    myChartInventario = new Chart(ctx, configuracion);
 }
 
 // VALIDACIONES
