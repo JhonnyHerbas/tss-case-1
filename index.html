@@ -67,6 +67,10 @@
                 <div>
                     <button id="simular">Simular</button>
                 </div>
+                
+                <div>
+                    <button class="button__pdf" id="generar-pdf">Generar PDF</button>
+                </div>
             </div>
         </section>
 
@@ -103,12 +107,14 @@
         <section class="costos">
             <section>
                 <section class="coste__total_pol1">
+                    <label>Costos politica 1</label>
                     <label id="costo-mantenimiento-1"></label>
                     <label id="costo-pedidos-1"></label>
                     <label id="costo-total-1"></label>
                 </section>
         
                 <section class="coste__total_pol1">
+                    <label>Costos politica 2</label>
                     <label id="costo-mantenimiento-2"></label>
                     <label id="costo-pedidos-2"></label>
                     <label id="costo-total-2"></label>
@@ -120,8 +126,8 @@
             </section>
         </section>
     </main>
-
-    <!-- Tu script personalizado para generar el gráfico -->
+    
+    <script src="assets/js/jspdf.min.js"></script>
     <script src="assets/js/obtenerDatos.js"></script>
 </body>
 

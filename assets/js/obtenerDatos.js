@@ -2,6 +2,35 @@ var myChartVentas;
 var myChartInventario;
 var myChartInventario2;
 
+const simulaciones = [];
+
+document.getElementById('generar-pdf').addEventListener('click', function () {
+    if (simulaciones.length === 0) {
+        alert('No se ejecutó ninguna simulación.');
+    } else {
+        var pdf = new jsPDF({
+            orientation: 'landscape'
+        });
+        var headers = ["Días de Simulación", "Inventario inicial", "Costo por Pedido", "Costo por Mant.", "Costo Pol. 1", "Costo Pol. 2", "Mejor Opción"];
+        pdf.setFontSize(12);
+        pdf.setTextColor(0, 0, 0);
+        var startX = 10;
+        var startY = 20;
+        var cellWidth = 40;
+        var cellHeight = 10;
+        headers.forEach((header, index) => {
+            pdf.text(startX + index * cellWidth, startY, header);
+        });
+        simulaciones.forEach((simulacion, rowIndex) => {
+            Object.values(simulacion).forEach((value, colIndex) => {
+                pdf.text(startX + colIndex * cellWidth, startY + (rowIndex + 1) * cellHeight, value.toString());
+            });
+        });
+        pdf.save("archivo.pdf");
+    }
+});
+
+
 document.getElementById('simular').addEventListener('click', function () {
     var tablaContainer = document.getElementById('venta-dias');
     var tablaInventario = document.getElementById('tabla-inventario');
@@ -48,11 +77,26 @@ document.getElementById('simular').addEventListener('click', function () {
         mostrarCostos2(resultadoCosto2);
 
         const resultFinal = document.getElementById('resultado-final');
+        var resultado = '';
         if (resultadoCosto[2] > resultadoCosto2[2]) {
+            resultado = 'Politica 2';
             resultFinal.textContent = 'La politica 2 es mas eficiente';
         } else {
+            resultado = 'Politica 1';
             resultFinal.textContent = 'La politica 1 es mas eficiente';
         }
+
+        const simulacion = {
+            diasSimulacion: numeroDias,
+            productoInicial: cantidadProductos,
+            costoPorPedido: costoPedido + ' Bs. ',
+            costoPorMant: costoMantenimiento + ' Bs. ',
+            costoPolitica1: resultadoCosto[2]  + ' Bs. ',
+            costoPolitica2: resultadoCosto2[2] + ' Bs. ',
+            mejorOpcion: resultado
+        }
+
+        simulaciones.push(simulacion);
     }
 });
 
@@ -144,7 +188,7 @@ function generarInventario2(cantidadProductos, vendido) {
             break;
         }
         inventario[i] = inventario[i - 1] - vendido[i - 1];
-        if (inventario[i - 1] - vendido[i - 1]  < 10) {
+        if (inventario[i - 1] - vendido[i - 1] < 10) {
             numeroDePedido = numeroDePedido + 1;
             diasLlegada = generarPedido(inventario[i]);
             listDiasLlegada.push(diasLlegada);

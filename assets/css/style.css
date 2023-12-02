@@ -104,7 +104,6 @@ button {
 }
 
 button:hover {
-    background-color: #349b4c;
     transform: translate(-2px, -2px);
 }
 
@@ -173,6 +172,10 @@ button:hover {
 
 .resultado__final {
     font-size: 20px;
+}
+
+.button__pdf {
+    background-color: hsl(261, 69%, 36%);
 }
 
 @media screen and (max-width: 576px) {
