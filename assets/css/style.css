@@ -157,9 +157,22 @@ button:hover {
     display: flex;
     justify-content: center;
 }
+
+.costos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .coste__total_pol1 {
     display: flex;
-    gap: 50px;
+    flex-direction: column;
+    row-gap: 5px;
+    margin: 20px;
+}
+
+.resultado__final {
+    font-size: 20px;
 }
 
 @media screen and (max-width: 576px) {
@@ -176,8 +189,12 @@ button:hover {
     }
 
     .coste__total_pol1 {
+        font-size: 12px;
         flex-direction: column;
-        row-gap: 10px;
-        align-items: center;
+        row-gap: 5px;
+    }
+
+    .costos {
+        flex-direction: column;
     }
 }

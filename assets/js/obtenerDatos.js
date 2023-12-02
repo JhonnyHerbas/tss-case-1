@@ -44,6 +44,15 @@ document.getElementById('simular').addEventListener('click', function () {
         const inventario2 = generarInventario2(cantidadProductos, vendido);
         crearTablaInventario(tablaInventario2, inventario2[0], inventario2[1]);
         graficarLinea2(inventario2[0]);
+        var resultadoCosto2 = calcularCoste(inventario2[0], inventario2[2], costoPedido, costoMantenimiento);
+        mostrarCostos2(resultadoCosto2);
+
+        const resultFinal = document.getElementById('resultado-final');
+        if (resultadoCosto[2] > resultadoCosto2[2]) {
+            resultFinal.textContent = 'La politica 2 es mas eficiente';
+        } else {
+            resultFinal.textContent = 'La politica 1 es mas eficiente';
+        }
     }
 });
 
@@ -170,6 +179,20 @@ function mostrarCostos(datos) {
     const mantenimiento = document.getElementById('costo-mantenimiento-1');
     const pedido = document.getElementById('costo-pedidos-1');
     const total = document.getElementById('costo-total-1');
+
+    const costoMantenimiento = datos[0];
+    const costoPedido = datos[1];
+    const costoTotal = datos[2];
+
+    mantenimiento.textContent = `Costo de mantenimiento: ${costoMantenimiento} Bs.`;
+    pedido.textContent = `Costo de pedido: ${costoPedido} Bs.`;
+    total.textContent = `Costo total: ${costoTotal} Bs.`;
+}
+
+function mostrarCostos2(datos) {
+    const mantenimiento = document.getElementById('costo-mantenimiento-2');
+    const pedido = document.getElementById('costo-pedidos-2');
+    const total = document.getElementById('costo-total-2');
 
     const costoMantenimiento = datos[0];
     const costoPedido = datos[1];
