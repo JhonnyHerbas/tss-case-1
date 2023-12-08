@@ -23,6 +23,11 @@ main {
     row-gap: 25px;
 }
 
+footer {
+    display: flex;
+    justify-content: center;
+}
+
 .policies {
     display: flex;
     flex-wrap: wrap;
@@ -31,6 +36,7 @@ main {
 
 .title {
     font-size: x-large;
+    text-align: center;
 }
 
 section {
@@ -178,6 +184,51 @@ button:hover {
     background-color: hsl(261, 69%, 36%);
 }
 
+.section__problem {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+}
+
+.section__problem label {
+    font-size: larger;
+    font-weight: 500;
+}
+
+.section__problem p {
+    font-size: medium;
+}
+
+.section__problem ul {
+    font-size: medium;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+}
+
+.description {
+    display: flex;
+    align-items: center;
+}
+
+.description img{
+    background-color: white;
+}
+
+a {
+    height: 40px;
+    width: 200px;
+    background-color: burlywood;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #051624;
+}
+
 @media screen and (max-width: 576px) {
     .data {
         flex-direction: column;
@@ -199,5 +250,18 @@ button:hover {
 
     .costos {
         flex-direction: column;
+    }
+
+    .description {
+        flex-direction: column;
+    }
+
+    .description img {
+        width: calc(100% - 20px);
+    }
+
+    .section__problem {
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }

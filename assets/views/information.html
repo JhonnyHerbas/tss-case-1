@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informacion</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <label class="title">Informacion acerca del problema</label>
+    </header>
+    <main class="main">
+        <section class="section__problem">
+            <label>Problema</label>
+
+            <p>
+                El problema presenta a una empresa de negocios que tiene una demanda de cierto
+                articulo por una distribucion binomial con parametros de: <br>
+            </p>
+            <ul>
+                <li>n = 6</li>
+                <li>Theta = 1/2</li>
+            </ul>
+            <p>
+                El tiempo de la entrega esta definida por una variable Poisson con los 
+                parametros.
+            </p>
+            <ul>
+                <li>Lambda = 6</li>
+            </ul>
+            <p>
+                El costo de mantenimiento por unidad es de Bs.1 por dia y el costo de pedido
+                es de Bs. 50 por cada pedido.
+                Se tienen 2 politicas.
+            </p>
+            <ul>
+                <li>Politica 1</li>
+                <p>
+                    Realizar un pedido cada 8 dias hasta tener 30 articulos en inventario.
+                </p>
+                <li>Politica 2</li>
+                <p>
+                    Realizar un pedido hasta un maximo de 30 articulos cuando el nivel de inventario
+                    sea menor o igual 10.
+                </p>
+            </ul>
+            <p>
+                ¿Cual de las politicas es mas economica?
+            </p>
+        </section>
+
+        <section class="section__problem">
+            <label>Conceptos a conocer</label>
+
+            <ul>
+                <li>
+                    Distribucion binomial
+                </li>
+                <p class="description">
+                    La distribucion binomial es una distribucion de probabilidad discrete que cuenta el
+                    numero de exitos en una secuencia N ensayos independientes entre si con una probabilidad
+                    fija de ocurrencia de exito de ocurrencia de exito de ensayos.
+                    <img src="../img/binomial.png" alt="binomial">
+                </p>
+                <li>
+                    Distrubucion Poisson
+                </li>
+                <p class="description">
+                    La distribución de Poisson es una distribución de probabilidad discreta que se aplica a 
+                    las ocurrencias de algún evento durante un periodo determinado. Es decir, es una 
+                    distribución de probabilidad discreta en la que solo es necesario conocer los eventos y
+                    cuál es su frecuencia media de ocurrencia para poder conocer la probabilidad de que ocurran.
+                    <img src="../img/poisson.png" alt="poisson">
+                </p>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <section class="section__problem">
+            <label>Como funciona la aplicacion</label>
+            <p>
+                La aplicacion permite ingresar los siguientes datos:
+            </p>
+            <ul>
+                <li>Numero de dias</li>
+                <p>
+                    Se ingresa el numero de dias que el negocio trabaja y realiza ventas.
+                </p>
+                <li>Cantidad de productos</li>
+                <p>
+                    Se ingresa la cantidad inicial de productos con la que inicia el negocio
+                    el primer dia.
+                </p>
+                <li>Costo de pedido</li>
+                <p>
+                    Se ingresa el costo en Bolivianos del costo individual de cada pedido que
+                    se realiza. En el caso del problema descrito es de Bs. 50 por cada pedido.
+                </p>
+                <li>Costo de mantenimiento</li>
+                <p>
+                    Se ingresa el costo de mantenimiento individual de cada producto. Es decir
+                    el costo de mantenimiento se multiplica cada dia por el numero de productos
+                    de ese dia.
+                </p>
+            </ul>
+        </section>
+    </footer>
+</body>
+
+</html>
